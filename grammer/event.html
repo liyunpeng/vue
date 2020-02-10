@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>样式绑定事件处理</title>
+    <script src="https://cdn.bootcss.com/vue/2.6.9/vue.js"></script>
+    <style>
+        .a {
+            color: red;
+        }
+
+        .b {
+            color: blue;
+        }
+
+        .c {
+            font-size: 60px;
+        }
+
+        /* div {
+            padding: 50px;
+        } */
+    </style>
+</head>
+
+<body>
+<div id="app">
+    <ul>
+        <li>
+            <h3>样式绑定</h3>
+            <span :class="AClz">123</span>
+            <span :class="BClz">123</span>
+            <span :class="CClz">123</span>
+        </li>
+
+        <li>
+            <h3>事件处理-阻止冒泡</h3>
+            <div style="background-color: red;width: 600px;height: 600px;" @click="a">
+                <div style="background-color: beige;width: 500px;height: 500px;" @click,stop="b">
+                    <div style="background-color: salmon;width: 400px;height: 400px;" @click="c">
+                        <div style="background-color: azure;width: 300px;height: 300px;" @click,stop="d"></div>
+                    </div>
+                </div>
+            </div>
+
+        </li>
+
+        <li>
+            <h3>事件处理-按钮只能点击一次</h3>
+            {{info}}
+            <input type="text" v-model="msg" v-on:keyup.enter="e"/>
+            <button @click="e">无限点击</button>
+            <button @click.once="e">一次点击</button>
+
+        </li>
+
+        <li>
+            <h3>按键修饰符</h3>
+            {{info}}
+            <input type="text" v-model="msg"/>
+            <button @click="e">无限点击</button>
+            <button @click.once="e">一次点击</button>
+
+        </li>
+
+        <li>
+            <h3>select标签</h3>
+            <select name="hobby" v-model="selectedIds">
+                <option v-for="d in datas" :value="d.id">{{d.name}}</option>
+            </select>
+            选中的值:{{selectedIds}}
+        </li>
+        <li>
+            <h3>复选框标签</h3>
+            <div v-for="d in datas">
+                <input type="checkbox" :value="d.id" name="likes" v-model="selectedIdarr"/>{{d.name}}
+            </div>
+            选中的值:{{selectedIdarr}}
+
+
+        </li>
+    </ul>
+</div>
+</body>
+<script type="text/javascript">
+    // 作用将vue实例挂载到具体的边界,那么这个边界就会被vue这个渐进式的框架所管理
+    // 边界不能有兄弟标签 边界一定是根标签
+    new Vue({
+        el: '#app',
+        data: {
+            msg: 'hello vue!!',
+            AClz: 'a',
+            BClz: 'b',
+            CClz: ['b', 'c'],
+            info: '',
+            datas: [{id: 1, name: 'zs'},
+                {id: 2, name: 'zx'},
+                {id: 3, name: 'gy'}],
+            selectedIds: '',
+            selectedIdarr: []
+        },
+        methods: {
+            a() {
+                alert('a触发')
+                alert(this.selectedIds)
+            },
+            b() {
+                alert('b触发')
+            },
+            c() {
+                alert('c触发')
+            },
+            d() {
+                alert('d触发')
+            },
+            e() {
+                this.info = this.msg
+                this.msg = ''
+            }
+        },
+
+
+    })
+</script>
+
+</html>

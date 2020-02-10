@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>组件</title>
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <ul>
+        <li>
+            <h3>局部组件的注册</h3>
+            <!-- 具有侵入性 -->
+            <local-button></local-button>
+
+        </li>
+        <li>
+            <h3>全局组件的注册</h3>
+            <global-button></global-button>
+        </li>
+        <li>
+            <h3>组件的通信（父传子）</h3>
+            <local-button m='zs'></local-button>
+        </li>
+        <li>
+            <h3>组件的通信（子传父）</h3>
+            <local-button m='ls' @three-click='xxx'></local-button>
+        </li>
+    </ul>
+</div>
+
+</body>
+<script type="text/javascript">
+    Vue.component(
+        'global-button', {
+            template: '<button @click="doSubmit">被点击了{{n}}次</button>',
+            data() {
+                return {
+                    n: 0
+                }
+            },
+            methods: {
+                doSubmit() {
+                    this.n += 1;
+                }
+            }
+        })
+
+    new Vue({
+        el: "#app",
+        data() {
+            return {}
+        },
+        components: {
+            'local-button': {
+                props: ['m'],
+                template: '<button @click="doSubmit">被{{m}}点击了{{n}}次</button>',
+                data() {
+                    return {
+                        n: 0,
+                        zhedie: '折叠效果'
+                    }
+                },
+                methods: {
+                    doSubmit() {
+                        this.n += 1;
+                        // 注册一个事件,让外部调用,然后顺便接受内部的值
+                        if (this.n % 3 == 0) {
+                            this.$emit('three-click', this.zhedie);
+                        }
+                    }
+                }
+            }
+        },
+        methods: {
+            xxx(v) {
+                alert(v);
+            }
+        }
+    })
+</script>
+</html>

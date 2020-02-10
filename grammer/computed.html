@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>vue的计算属性监听属性案例</title>
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <ul>
+        <li>
+            <h3>计算属性</h3>
+            商品1
+            单价：<input v-model="price1"/>
+            数量：<input v-model="num1"/>
+            总价：{{total1}}<br/>
+            商品2
+            单价：<input v-model="price2"/>
+            数量：<input v-model="num2"/>
+            总价：{{total2}}
+            <hr/>
+            合计：{{count}}
+
+        </li>
+        <li>
+            <h3>监听属性</h3>
+            km:<input v-model="km"/>
+            m:<input v-model="m"/>
+        </li>
+    </ul>
+</div>
+
+</body>
+<script type="text/javascript">
+    new Vue({
+        el: "#app",
+        data: {
+            price1: 16,
+            price2: 20,
+            num1: 1,
+            num2: 1,
+            km: 1,
+            m: 1000
+        },
+        computed: {
+            total1() {
+                return parseInt(this.price1) * parseInt(this.num1);
+            },
+            total2() {
+                return parseInt(this.price2) * parseInt(this.num2);
+            },
+            count() {
+                return parseInt(this.total1) + parseInt(this.total2)
+            }
+        },
+        watch: {
+            km(v) {
+                this.m = v * 1000;
+            },
+            m(v) {
+                this.km = v / 1000;
+            }
+        }
+    })
+</script>
+
+</html>

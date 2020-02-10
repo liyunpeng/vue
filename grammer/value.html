@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>vue的插值案例</title>
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <ul>
+        <li>
+            <h3>文本</h3>
+            {{msg}}
+        </li>
+        <li>
+            <h3>html标签渲染</h3>
+            <div v-html="htmlStr"></div>
+        </li>
+        <li>
+            <h3>v-bind属性绑定指令</h3>
+            未绑定：<input type="text" value="22"/>
+            <!-- v-bind简写 :  -->
+            v-bind绑定：<input type="text" :value="age"/>
+        </li>
+        <li>
+            <h3>表达式</h3>
+            {{str.substr(0,6).toUpperCase()}}
+            {{ number + 1 }}
+                    {{ ok ? 'YES' : 'NO' }}
+        <li v-bind:id="'list-' + id">我的Id是js动态生成的</li>
+        </li>
+    </ul>
+</div>
+
+</body>
+<script type="text/javascript">
+    new Vue({
+        el: "#app",
+        data: {
+            msg: 'hello Vue!!',
+            htmlStr: '<span style="color: red;">红色小猪佩奇</span>',
+            age: 23,
+            str: 'https://www.baidu.com',
+            number: 6,
+            ok: true,
+            id: 21,
+        },
+    })
+</script>
+
+</html>
