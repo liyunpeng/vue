@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Vue 测试实例/title>
+        <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+        </head>
+<body>
+<div id="app4">
+    <my-component4 message="数据来自父组件"></my-component4>
+</div>
+
+
+
+</body>
+<script>
+
+    Vue.component('my-component4', {
+        props: ['message'],
+        template: '< div >{{message}}< /div>'
+    });
+    new Vue({
+        el: '#app4'
+    });
+</script>
+</html>
