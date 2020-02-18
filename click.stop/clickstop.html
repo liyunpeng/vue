@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://cdn.bootcss.com/vue/2.6.9/vue.js"></script>
+</head>
+<body>
+   
+
+<div id="app">
+        <div v-on:click="dodo">
+            <button v-on:click.stop="doThis">阻止单击事件继续传播</button>
+        </div>
+</div>
+</body>
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data: {
+                name: "Vue.js"
+            },
+            methods: {
+                doThis: function () {
+                    alert("noclick");
+                },
+                dodo: function () {
+                    alert("dodo");
+                }
+            }
+        });
+    </script>
+</body>
+</html>
